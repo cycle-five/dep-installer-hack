@@ -48,14 +48,26 @@ fn main() {
         println!("{}", String::from_utf8(out).unwrap());
 
         println!("Installing yt-dlp...");
-        if !std::process::Command::new("/bin/pip")
+        if !std::process::Command::new("python3")
+            .arg("-m")
+            .arg("pip")
             .arg("install")
+            .arg("-U")
             .arg("yt-dlp")
             .status()
             .expect("failed to run pip")
             .success()
         {
             panic!("failed to install yt-dlp")
+        }
+
+        if !std::process::Command::new("yt-dlp")
+            .arg("--version")
+            .status()
+            .expect("failed to run yt-dlp")
+            .success()
+        {
+            panic!("failed to run yt-dlp")
         }
     }
 }

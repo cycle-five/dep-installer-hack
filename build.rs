@@ -37,11 +37,18 @@ fn main() {
             .output()
             .unwrap()
             .stdout;
+        println!("{}", String::from_utf8(out).unwrap());
 
+        let out = std::process::Command::new("ls")
+            .arg("-la")
+            .arg("/root/")
+            .output()
+            .unwrap()
+            .stdout;
         println!("{}", String::from_utf8(out).unwrap());
 
         println!("Installing yt-dlp...");
-        if !std::process::Command::new("/home/ubuntu/.local/bin/pip")
+        if !std::process::Command::new("/bin/pip")
             .arg("install")
             .arg("yt-dlp")
             .status()
